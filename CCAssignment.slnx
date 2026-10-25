@@ -1,5 +1,4 @@
 <Solution>
-  <Folder Name="/Solution Items/">
-    <File Path="Tetst.txt" />
-  </Folder>
+  <Project Path="DBS_API/DBS_API.csproj" Id="0426d375-ae52-4fc2-99c4-f146d21bf14f" />
+  <Project Path="DBS_MVC_Client/DBS_MVC_Client.csproj" Id="bf115de9-c981-4ca6-aa41-131243de5cc9" />
 </Solution>
