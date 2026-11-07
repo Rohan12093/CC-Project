@@ -1,0 +1,30 @@
+﻿@model List<DBS_MVC_Client.Models.Booking>
+
+<h1>Booking Details</h1>
+<h3>All current booking details.</h3>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Booking ID</th>
+            <th>Booking Date</th>
+            <th>Booking Time</th>
+            <th>Booking Fee</th>
+            <th>Patient ID</th>
+            <th>Doctor ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var booking in Model)
+        {
+            <tr>
+                <td>@booking.BookingId</td>
+                <td>@booking.BookingDate</td>
+                <td>@booking.BookingTime</td>
+                <td>@booking.BookingFee</td>
+                <td>@booking.PatientId</td>
+                <td>@booking.DoctorId</td>
+            </tr>
+        }
+    </tbody>
+</table>
