@@ -1,0 +1,26 @@
+﻿@model List<DBS_MVC_Client.Models.PatientDetail>
+
+<h1>Patient Details</h1>
+<h3>All current patient details.</h3>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Patient ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var patient in Model)
+        {
+            <tr>
+                <td>@patient.PatientId</td>
+                <td>@patient.Name</td>
+                <td>@patient.Age</td>
+                <td>@patient.Gender</td>
+            </tr>
+        }
+    </tbody>
+</table>
