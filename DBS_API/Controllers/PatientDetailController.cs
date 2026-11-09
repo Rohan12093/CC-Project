@@ -32,7 +32,7 @@ namespace DBS_API.Controllers
 
             if (patient == null)
             {
-                return BadRequest("Patient not found");
+                return NotFound("Patient not found");
             }
 
             return patient;

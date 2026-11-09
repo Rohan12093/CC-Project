@@ -31,7 +31,7 @@ namespace DBS_API.Controllers
 
             if (doctor == null)
             {
-                return BadRequest("Doctor not found");
+                return NotFound("Doctor not found");
             }
 
             return doctor;
@@ -92,7 +92,6 @@ namespace DBS_API.Controllers
             return Ok($"Doctor {doctorid} has been successfully removed");
         }
 
-        //--To check if the patients exits--//
         private bool DoctorExists(int? doctorid)
         {
             return _context.TblDoctorDetails.Any(e => e.DoctorId == doctorid);
