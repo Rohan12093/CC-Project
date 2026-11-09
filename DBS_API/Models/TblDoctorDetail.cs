@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace DBS_API.Models;
 
@@ -45,9 +46,11 @@ public partial class TblDoctorDetail
     [Unicode(false)]
     public string DoctorSpecialisation { get; set; }
 
+    [JsonIgnore]
     [InverseProperty("Doctor")]
     public virtual ICollection<TblBooking> TblBookings { get; set; } = new List<TblBooking>();
 
+    [JsonIgnore]
     [InverseProperty("Doctor")]
     public virtual ICollection<TblDoctorSchedule> TblDoctorSchedules { get; set; } = new List<TblDoctorSchedule>();
-}
+}   
