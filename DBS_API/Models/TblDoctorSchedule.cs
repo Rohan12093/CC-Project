@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace DBS_API.Models;
 
@@ -30,7 +31,9 @@ public partial class TblDoctorSchedule
     [Column("doctorID")]
     public int? DoctorId { get; set; }
 
+
     [ForeignKey("DoctorId")]
+    [JsonIgnore]
     [InverseProperty("TblDoctorSchedules")]
     public virtual TblDoctorDetail Doctor { get; set; }
 }

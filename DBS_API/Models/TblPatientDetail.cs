@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace DBS_API.Models;
 
@@ -65,6 +66,7 @@ public partial class TblPatientDetail
     [Column("patientEnrolStat")]
     public bool PatientEnrolStat { get; set; }
 
+    [JsonIgnore]
     [InverseProperty("Patient")]
-    public virtual ICollection<TblBooking> TblBookings { get; set; } = new List<TblBooking>();
+    public virtual ICollection<TblBooking> TblBookings { get; set; }= new List<TblBooking>();
 }

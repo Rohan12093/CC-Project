@@ -14,5 +14,25 @@
         public string PatientPhone { get; set; }
         public bool PatientEnrolStat { get; set; }
 
+        //--Kailash 8/11/2026 --//
+        //Calcluating Patient age from PatientDob
+        public int PatientAge
+        {
+            get
+            {
+                var today = DateOnly.FromDateTime(DateTime.Today);
+
+                int age = today.Year - PatientDob.Year;
+
+                if (today < PatientDob.AddYears(age))
+                {
+                    age--;
+                }
+
+                return age;
+            }
+        }
+
+
     }
 }
