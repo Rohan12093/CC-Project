@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DBS_API.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DBS_API.Models;
 
 namespace DBS_API.Controllers
 {
@@ -15,6 +16,7 @@ namespace DBS_API.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "Admin,Doctor")]
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -24,6 +26,7 @@ namespace DBS_API.Controllers
         }
 
         //--Kailash 9/11/2026--//
+        [Authorize(Roles = "Admin,Doctor")]
         [HttpGet("{doctorid}")]
         public async Task<ActionResult<TblDoctorDetail>> GetDoctor(int doctorid)
         {
@@ -38,6 +41,7 @@ namespace DBS_API.Controllers
         }
 
         //---PUT---/
+        [Authorize(Roles = "Admin,Doctor")]
         [HttpPut("{doctorid}")]
         public async Task<IActionResult> PutDoctor(int? doctorid, TblDoctorDetail doctor)
         {
@@ -67,6 +71,7 @@ namespace DBS_API.Controllers
         }
 
         //--POST--//
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<TblDoctorDetail>> PostDoctor(TblDoctorDetail doctor)
         {
@@ -77,6 +82,7 @@ namespace DBS_API.Controllers
         }
 
         //--DELETE--//
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{doctorid}")]
         public async Task<IActionResult> DeleteDoctor(int? doctorid)
         {
