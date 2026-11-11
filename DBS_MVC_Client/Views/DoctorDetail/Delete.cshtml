@@ -1,0 +1,56 @@
+﻿@model DBS_MVC_Client.Models.DoctorDetail
+
+@{
+    ViewData["Title"] = "Delete";
+}
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete the Booking?</h3>
+<div>
+    <h4>Booking</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DoctorId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DoctorId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DoctorFname)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DoctorFname)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DoctorLname)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DoctorLname)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DoctorEmail)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DoctorEmail)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DoctorPhone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DoctorPhone)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DoctorSpecialisation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DoctorSpecialisation)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="DoctorId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

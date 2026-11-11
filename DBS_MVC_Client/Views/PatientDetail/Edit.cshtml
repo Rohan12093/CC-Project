@@ -1,0 +1,82 @@
+﻿@model DBS_MVC_Client.Models.PatientDetail
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<h1>Edit</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PatientId" class="control-label"></label>
+                <input asp-for="PatientId" class="form-control" />
+                <span asp-validation-for="PatientId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientFname" class="control-label"></label>
+                <input asp-for="PatientFname" class="form-control" />
+                <span asp-validation-for="PatientFname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientLname" class="control-label"></label>
+                <input asp-for="PatientLname" class="form-control" />
+                <span asp-validation-for="PatientLname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientAge" class="control-label"></label>
+                <input asp-for="PatientAge" class="form-control" />
+                <span asp-validation-for="PatientAge" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientDob" class="control-label"></label>
+                <input asp-for="PatientDob" class="form-control" />
+                <span asp-validation-for="PatientDob" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientStreetAddress" class="control-label"></label>
+                <input asp-for="PatientStreetAddress" class="form-control" />
+                <span asp-validation-for="PatientStreetAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientSuburb" class="control-label"></label>
+                <input asp-for="PatientSuburb" class="form-control" />
+                <span asp-validation-for="PatientSuburb" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientCity" class="control-label"></label>
+                <input asp-for="PatientCity" class="form-control" />
+                <span asp-validation-for="PatientCity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientEmail" class="control-label"></label>
+                <input asp-for="PatientEmail" class="form-control" />
+                <span asp-validation-for="PatientEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientPhone" class="control-label"></label>
+                <input asp-for="PatientPhone" class="form-control" />
+                <span asp-validation-for="PatientPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientEnrolStat" class="control-label"></label>
+                <input asp-for="PatientEnrolStat" class="form-control" />
+                <span asp-validation-for="PatientEnrolStat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

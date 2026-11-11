@@ -17,6 +17,7 @@ builder.Services.AddHttpClient("FeeCalcService", client =>
 {
     client.BaseAddress = new Uri("http://localhost:7198/api/");
 });
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -24,6 +25,8 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
