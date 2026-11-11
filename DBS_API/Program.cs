@@ -13,6 +13,10 @@ builder.Services.AddDbContext<DBS_Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")
 ));
 
+builder.Services.AddHttpClient("FeeCalcService", client =>
+{
+    client.BaseAddress = new Uri("http://localhost:7198/api/");
+});
 
 var app = builder.Build();
 
