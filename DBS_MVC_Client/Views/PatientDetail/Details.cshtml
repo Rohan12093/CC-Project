@@ -1,0 +1,45 @@
+﻿@model DBS_MVC_Client.Models.PatientDetail
+
+@{
+    ViewData["Title"] = "Detail";
+}
+<h1>Doctor Detail</h1>
+<table class="table table-bordered">
+    <tr>
+        <th>Id</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+        <th>Date of Birth</th>
+        <th>Street Address</th>
+        <th>Suburb</th>
+        <th>City</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Enrolled</th>
+
+    </tr>
+    <tr>
+        <td>@Model.PatientId</td>
+        <td>@Model.PatientFname</td>
+        <td>@Model.PatientLname</td>
+        <td>@Model.PatientAge</td>
+        <td>@Model.PatientDob</td>
+        <td>@Model.PatientStreetAddress</td>
+        <td>@Model.PatientSuburb</td>
+        <td>@Model.PatientCity</td>
+        <td>@Model.PatientEmail</td>
+        <td>@Model.PatientPhone</td>
+        <td>@Model.PatientEnrolStat</td>
+    </tr>
+</table>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.PatientId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

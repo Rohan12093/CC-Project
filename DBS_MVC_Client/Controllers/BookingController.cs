@@ -50,6 +50,7 @@ namespace DBS_MVC_Client.Controllers
         }
         [Authorize(Roles = "Patient, Docter")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Booking booking)
         {
             if (ModelState.IsValid)
@@ -92,6 +93,7 @@ namespace DBS_MVC_Client.Controllers
         }
         [Authorize(Roles = "Patient, Docter")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Booking booking)
         {
             if (id != booking.BookingId)
@@ -119,6 +121,7 @@ namespace DBS_MVC_Client.Controllers
         }
         [Authorize(Roles = "Patient, Docter")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(Booking booking)
         {
             //Find Patient with the ID

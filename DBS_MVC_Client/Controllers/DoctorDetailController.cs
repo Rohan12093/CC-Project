@@ -49,6 +49,7 @@ namespace DBS_MVC_Client.Controllers
         }
         [Authorize(Roles = "Doctor, Admin")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(DoctorDetail docDetail)
         {
             if (ModelState.IsValid)
@@ -63,7 +64,7 @@ namespace DBS_MVC_Client.Controllers
             return BadRequest();
         }
         [Authorize(Roles = "Doctor, Admin")]
-        public async Task<IActionResult> EditDetails(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             var response = await _httpClient.GetAsync($"api/DoctorSchedule/{id}");
             if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -92,6 +93,7 @@ namespace DBS_MVC_Client.Controllers
         }
         [Authorize(Roles = "Doctor, Admin")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, DoctorDetail doctorDetail)
         {
             if (id != doctorDetail.DoctorId)
@@ -105,7 +107,7 @@ namespace DBS_MVC_Client.Controllers
 
         }
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteDoctor(int id)
+        public async Task<IActionResult> Delete(int id)
         {
 
             var response = await _httpClient.GetAsync($"api/DoctorDetail/{id}");
@@ -119,6 +121,7 @@ namespace DBS_MVC_Client.Controllers
         }
         [HttpPost]
         [Authorize(Roles ="Admin")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ConfirmDelete(DoctorDetail doctorDetail)
         {
             var response = await _httpClient.DeleteAsync($"api/DoctorDetail/{doctorDetail.DoctorId}");
@@ -143,6 +146,7 @@ namespace DBS_MVC_Client.Controllers
         }
         [Authorize(Roles = "Admin")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(PatientDetail patientDetail)
         {
             var response = await _httpClient.DeleteAsync($"api/PatientDetail/{patientDetail.PatientId}");

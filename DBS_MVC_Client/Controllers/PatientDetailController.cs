@@ -24,7 +24,7 @@ namespace DBS_MVC_Client.Controllers
             return View(booking);
         }
         [Authorize(Roles = "Patient")]
-        public async Task<IActionResult> PatientDetails(int id)
+        public async Task<IActionResult> Details(int id)
         {
             var response = await _httpClient.GetAsync($"api/PatientDetails/{id}");
             if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -51,6 +51,7 @@ namespace DBS_MVC_Client.Controllers
         }
         [Authorize(Roles = "Patient")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PatientDetail booking)
         {
             if (ModelState.IsValid)
@@ -65,7 +66,7 @@ namespace DBS_MVC_Client.Controllers
             return BadRequest();
         }
         [Authorize(Roles = "Patient")]
-        public async Task<IActionResult> EditDetails(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             var response = await _httpClient.GetAsync($"api/PatientDetail/{id}");
             if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -93,6 +94,7 @@ namespace DBS_MVC_Client.Controllers
         }
         [Authorize(Roles = "Patient")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, PatientDetail patientDetail)
         {
             if (id != patientDetail.PatientId)

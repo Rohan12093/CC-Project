@@ -1,0 +1,38 @@
+﻿
+@model DBS_MVC_Client.Models.Booking
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Booking Detail</h1>
+    <table class="table table-bordered">
+        <tr>
+        <th>Booking Id</th>
+        <th>Booking Date</th>
+        <th>Booking Time</th>
+        <th>Booking Fee</th>
+        <th>Patient Id</th>
+        <th>Doctor Id</th>
+        <th>Doctor Fname</th>
+        </tr>
+        <tr>
+        <td>@Model.BookingId</td>
+        <td>@Model.BookingDate</td>
+        <td>@Model.BookingTime</td>
+        <td>@Model.BookingFee</td>
+        <td>@Model.PatientId</td>
+        <td>@Model.DoctorId</td>
+        <td>@Model.DoctorFname</td>
+        </tr>
+    </table>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.DoctorId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
