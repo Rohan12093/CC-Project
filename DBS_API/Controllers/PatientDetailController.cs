@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DBS_API.Models;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace DBS_API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class PatientDetailController : Controller
@@ -16,6 +18,7 @@ namespace DBS_API.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "Admin,Doctor")]
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -25,6 +28,7 @@ namespace DBS_API.Controllers
         }
 
         //--Kailash 9/11/2026--//
+        [Authorize(Roles = "Admin,Doctor,Patient")]
         [HttpGet("{patientid}")]
         public async Task<ActionResult<TblPatientDetail>> GetPatient(int patientid)
         {
@@ -39,6 +43,7 @@ namespace DBS_API.Controllers
         }
 
         //---PUT---/
+        [Authorize(Roles = "Admin,Doctor,Patient")]
         [HttpPut("{patientid}")]
         public async Task<IActionResult> PutPatient(int? patientid, TblPatientDetail patient)
         {
@@ -68,6 +73,7 @@ namespace DBS_API.Controllers
         }
 
         //--POST--//
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<TblPatientDetail>> PostPatient(TblPatientDetail patient)
         {
@@ -78,6 +84,7 @@ namespace DBS_API.Controllers
         }
 
         //--DELETE--//
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{patientid}")]
         public async Task<IActionResult> DeletePatient(int? patientid)
         {
