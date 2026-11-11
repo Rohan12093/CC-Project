@@ -1,4 +1,6 @@
-﻿using DBS_MVC_Client.Models;
+﻿using DBS_MVC_Client.Data;
+using DBS_MVC_Client.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Identity.Client.NativeInterop;
@@ -10,15 +12,18 @@ namespace DBS_MVC_Client.Controllers
         private readonly HttpClient _httpClient;
         public PatientDetailController(IHttpClientFactory factory)
         {
-            _httpClient = factory.CreateClient();
+            _httpClient = factory.CreateClient("DBS_API");
+
         }
+        [Authorize(Roles = "Patient")]
         public async Task<IActionResult> Index()
         {
-            var booking = await _httpClient.GetFromJsonAsync<List<Booking>>(
-                "api/[PatientDetailController]");
+            var booking = await _httpClient.GetFromJsonAsync<List<PatientDetail>>(
+                "api/PatientDetailController/{id}");
 
             return View(booking);
         }
+        [Authorize(Roles = "Patient")]
         public async Task<IActionResult> PatientDetails(int id)
         {
             var response = await _httpClient.GetAsync($"api/PatientDetails/{id}");
@@ -30,24 +35,27 @@ namespace DBS_MVC_Client.Controllers
             return View(await response.Content.ReadFromJsonAsync<PatientDetail>());
 
         }
+        [Authorize(Roles = "Patient")]
         public async Task<IActionResult> Create()
         {
-            var docSchedule = await _httpClient.GetFromJsonAsync<List<Booking>>("api/Booking/");
+            var docSchedule = await _httpClient.GetFromJsonAsync<List<PatientDetail>>("api/PatientDetail/");
 
             ViewBag.docSchedule = new SelectList(
                 docSchedule,
                 "DocScheId",
-                "DocSchIsBooked"
+                "DocSchIsDate",
+                "DocSchStime"
                 );
 
             return View();
         }
+        [Authorize(Roles = "Patient")]
         [HttpPost]
-        public async Task<IActionResult> Create(Booking booking)
+        public async Task<IActionResult> Create(PatientDetail booking)
         {
             if (ModelState.IsValid)
             {
-                var response = await _httpClient.PostAsJsonAsync("api/Booking", booking);
+                var response = await _httpClient.PostAsJsonAsync("api/PatientDetail", booking);
                 if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction("Index");
@@ -56,6 +64,7 @@ namespace DBS_MVC_Client.Controllers
             }
             return BadRequest();
         }
+        [Authorize(Roles = "Patient")]
         public async Task<IActionResult> EditDetails(int id)
         {
             var response = await _httpClient.GetAsync($"api/PatientDetail/{id}");
@@ -70,7 +79,7 @@ namespace DBS_MVC_Client.Controllers
                 return NotFound();
 
             //---------------------
-            var booking = await _httpClient.GetFromJsonAsync<List<Booking>>("api/Booking");
+            var booking = await _httpClient.GetFromJsonAsync<List<PatientDetail>>("api/PatientDetail");
 
             ViewBag.Booking = new SelectList(
                 booking,
@@ -82,39 +91,19 @@ namespace DBS_MVC_Client.Controllers
             return View(patient);
 
         }
+        [Authorize(Roles = "Patient")]
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, Booking booking)
+        public async Task<IActionResult> Edit(int id, PatientDetail patientDetail)
         {
-            if (id != booking.BookingId)
+            if (id != patientDetail.PatientId)
                 return BadRequest();
 
-            var response = await _httpClient.PutAsJsonAsync($"api/Booking/{id}", booking);
+            var response = await _httpClient.PutAsJsonAsync($"api/PatientDetail/{id}", patientDetail);
             if (response.IsSuccessStatusCode)
                 return RedirectToAction("Index");
 
-            return View(booking);
+            return View(patientDetail);
 
-        }
-        public async Task<IActionResult> Delete(int id)
-        {
-            var response = await _httpClient.GetAsync($"api/Booking/{id}");
-            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-                return NotFound();
-            if (!response.IsSuccessStatusCode)
-                return NotFound();
-
-            var booking = (await response.Content.ReadFromJsonAsync<Booking>());
-            return View(booking);
-        }
-        [HttpPost]
-        public async Task<IActionResult> DeleteConfirmed(Booking booking)
-        {
-            var response = await _httpClient.DeleteAsync($"api/Booking/{booking.BookingId}");
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
-            return View(booking);
         }
 
     }

@@ -14,8 +14,10 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddHttpClient();
-
+builder.Services.AddHttpClient("DBS_API", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7186/");
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

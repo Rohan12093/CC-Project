@@ -1,5 +1,6 @@
 ﻿using DBS_MVC_Client.Models;
 using Humanizer.Configuration;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Identity.Client.NativeInterop;
@@ -11,20 +12,17 @@ namespace DBS_MVC_Client.Controllers
         private readonly HttpClient _httpClient;
         public BookingController(IHttpClientFactory factory)
         {
-            _httpClient = factory.CreateClient();
+            _httpClient = factory.CreateClient("DBS_API");
         }
-        //public async Task<IActionResult> GetFromApi()
-        //{
-        //    var httpClient = _httpClientFactory.CreateClient();
-        //    var apiBaseUrl = "https://localhost:7171/";
-        //}
+        [Authorize(Roles ="Patient, Docter")]
         public async Task<IActionResult> Index()
         {
             var booking = await _httpClient.GetFromJsonAsync<List<Booking>>(
-                "api/[BookingController]");
+                "api/BookingController");
 
             return View(booking);
         }
+        [Authorize(Roles = "Patient, Docter")]
         public async Task<IActionResult> Details(int id)
         {
             var response = await _httpClient.GetAsync($"api/Booking/{id}");
@@ -37,7 +35,7 @@ namespace DBS_MVC_Client.Controllers
 
         }
 
-
+        [Authorize(Roles = "Patient, Docter")]
         public async Task<IActionResult> Create()
         {
             var docSchedule = await _httpClient.GetFromJsonAsync<List<Booking>>("api/Booking/");
@@ -50,6 +48,7 @@ namespace DBS_MVC_Client.Controllers
 
             return View();
         }
+        [Authorize(Roles = "Patient, Docter")]
         [HttpPost]
         public async Task<IActionResult> Create(Booking booking)
         {
@@ -62,8 +61,9 @@ namespace DBS_MVC_Client.Controllers
                 }
                 return View(booking);
             }
-            return BadRequest();
+            return View(booking);
         }
+        [Authorize(Roles = "Patient, Docter")]
         public async Task<IActionResult> Edit(int id)
         {
             var response = await _httpClient.GetAsync($"api/Booking/{id}");
@@ -90,6 +90,7 @@ namespace DBS_MVC_Client.Controllers
             return View(booking);
 
         }
+        [Authorize(Roles = "Patient, Docter")]
         [HttpPost]
         public async Task<IActionResult> Edit(int id, Booking booking)
         {
@@ -103,6 +104,7 @@ namespace DBS_MVC_Client.Controllers
             return View(booking);
 
         }
+        [Authorize(Roles = "Patient, Docter")]
         public async Task<IActionResult> Delete(int id)
         {
             //Find Patient with the ID
@@ -115,6 +117,7 @@ namespace DBS_MVC_Client.Controllers
             var booking = (await response.Content.ReadFromJsonAsync<Booking>());
             return View(booking);
         }
+        [Authorize(Roles = "Patient, Docter")]
         [HttpPost]
         public async Task<IActionResult> Delete(Booking booking)
         {
